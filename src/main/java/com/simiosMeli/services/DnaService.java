@@ -30,6 +30,10 @@ public class DnaService {
         return dnaRepository.save(objDnaEntity);
     }
 
+    public void delete(Long id) {
+        dnaRepository.deleteById(id);
+    }
+
     public boolean isSimian(String[] dnaSimios) {
 
         return isSimianHorizontal(dnaSimios) || isSimianVertical(dnaSimios) || isSimianDiagonalPrincipalParaBaixo(dnaSimios) ||

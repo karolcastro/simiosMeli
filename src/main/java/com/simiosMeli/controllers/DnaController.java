@@ -36,4 +36,10 @@ public class DnaController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(objDnaEntity.getId()).toUri();
         return ResponseEntity.created(uri).body(objDnaEntity);
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        dnaService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
