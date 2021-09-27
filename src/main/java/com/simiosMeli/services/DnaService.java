@@ -1,46 +1,9 @@
 package com.simiosMeli.services;
 
-
-import com.simiosMeli.entities.DnaEntity;
-import com.simiosMeli.repositories.DnaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DnaService {
-
-    @Autowired
-    private DnaRepository dnaRepository;
-
-    public List<DnaEntity> findAll() {
-        return dnaRepository.findAll();
-    }
-
-    public DnaEntity findById(Long id) {
-        Optional<DnaEntity> optionalDnaEntity = dnaRepository.findById(id);
-        return optionalDnaEntity.get();
-    }
-
-    public DnaEntity insert(DnaEntity objDnaEntity) {
-        return dnaRepository.save(objDnaEntity);
-    }
-
-    public void delete(Long id) {
-        dnaRepository.deleteById(id);
-    }
-
-    public DnaEntity update(Long id, DnaEntity objDnaEntity) {
-        DnaEntity dna = dnaRepository.getById(id);
-        updateData(dna, objDnaEntity);
-        return  dnaRepository.save(dna);
-    }
-
-    private void updateData(DnaEntity dna, DnaEntity objDnaEntity) {
-        dna.setDna(objDnaEntity.getDna());
-    }
 
     public boolean isSimian(String[] dnaSimios) {
 
@@ -49,9 +12,7 @@ public class DnaService {
     }
 
     public boolean isSimianHorizontal(String[] dnaSimios) {
-
         try {
-
             int sizeMatriz = dnaSimios.length;
 
             for (int line = 0; line < sizeMatriz; line++) {
@@ -81,11 +42,9 @@ public class DnaService {
     }
 
     public static boolean isSimianVertical(String[] dnaSimios) {
+        int sizeMatriz = dnaSimios.length;
 
         try {
-
-            int sizeMatriz = dnaSimios.length;
-
             for (int column = 0; column < sizeMatriz; column++) {
                 char letra = ' ';
                 int count = 0;
@@ -113,10 +72,9 @@ public class DnaService {
 
     public static boolean isSimianDiagonalPrincipalParaBaixo(String[] dnaSimios) {
 
+        int sizeMatriz = dnaSimios.length;
+
         try {
-
-            int sizeMatriz = dnaSimios.length;
-
             for (int column = sizeMatriz - 1; column < sizeMatriz; column++) {
                 char letra = ' ';
                 int count = 0;
@@ -176,7 +134,6 @@ public class DnaService {
     }
 
     public static boolean isSimianDiagonalSecundariaParaCimaEsquerda(String[] dnaSimios) {
-
 
         int sizeMatriz = dnaSimios.length;
 

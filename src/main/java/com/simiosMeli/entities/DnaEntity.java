@@ -11,16 +11,19 @@ public class DnaEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String dna;
+    private String[] dna;
 
     public DnaEntity() {
     }
 
-    public DnaEntity(Long id, String dna) {
+    public DnaEntity(Long id, String[] dna) {
         this.id = id;
         this.dna = dna;
+
     }
 
+    public <R> DnaEntity(R collect) {
+    }
 
     public Long getId() {
         return id;
@@ -30,11 +33,11 @@ public class DnaEntity implements Serializable {
         this.id = id;
     }
 
-    public String getDna() {
+    public String[] getDna() {
         return dna;
     }
 
-    public void setDna(String dna) {
+    public void setDna(String[] dna) {
         this.dna = dna;
     }
 
