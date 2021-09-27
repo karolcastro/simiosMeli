@@ -1,10 +1,30 @@
 package com.simiosMeli.services;
 
 
+import com.simiosMeli.entities.DnaEntity;
 import com.simiosMeli.repositories.DnaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import java.nio.file.OpenOption;
+import java.util.List;
+import java.util.Optional;
+
+@Service
 public class DnaService {
+
+    @Autowired
+    private DnaRepository dnaRepository;
+
+    public List<DnaEntity> findAll() {
+        return dnaRepository.findAll();
+    }
+
+    public DnaEntity findById(Long id) {
+        Optional<DnaEntity> optionalDnaEntity = dnaRepository.findById(id);
+        return optionalDnaEntity.get();
+    }
 
     public boolean isSimian(String[] dnaSimios) {
 
@@ -37,11 +57,10 @@ public class DnaService {
                     }
                 }
             }
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new ArrayIndexOutOfBoundsException(e.getMessage());
         }
-            return false;
+        return false;
 
     }
 
@@ -70,11 +89,10 @@ public class DnaService {
                     }
                 }
             }
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new ArrayIndexOutOfBoundsException(e.getMessage());
         }
-            return false;
+        return false;
     }
 
     public static boolean isSimianDiagonalPrincipalParaBaixo(String[] dnaSimios) {
@@ -103,11 +121,10 @@ public class DnaService {
                     }
                 }
             }
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new ArrayIndexOutOfBoundsException(e.getMessage());
         }
-            return false;
+        return false;
 
     }
 
@@ -135,20 +152,19 @@ public class DnaService {
                     }
                 }
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ArrayIndexOutOfBoundsException(e.getMessage());
         }
-            catch (ArrayIndexOutOfBoundsException e) {
-                throw new ArrayIndexOutOfBoundsException(e.getMessage());
-            }
-            return false;
+        return false;
 
     }
 
     public static boolean isSimianDiagonalSecundariaParaCimaEsquerda(String[] dnaSimios) {
 
 
-            int sizeMatriz = dnaSimios.length;
+        int sizeMatriz = dnaSimios.length;
 
-            try {
+        try {
             for (int column = sizeMatriz - 1; column >= 0; column--) {
                 char letra = ' ';
                 int count = 0;
@@ -168,11 +184,10 @@ public class DnaService {
                     }
                 }
             }
-            }
-            catch (ArrayIndexOutOfBoundsException e) {
-                    throw new ArrayIndexOutOfBoundsException(e.getMessage());
-                }
-            return false;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ArrayIndexOutOfBoundsException(e.getMessage());
+        }
+        return false;
 
     }
 

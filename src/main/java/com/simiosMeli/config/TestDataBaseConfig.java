@@ -26,7 +26,9 @@ public class TestDataBaseConfig implements CommandLineRunner {
         //DnaEntity dna2 = new DnaEntity(Arrays.stream(new String[]{"CAGTAA", "TTTTAT", "GCAGGC", "ACTGAC", "TGAATC"}).sequential().map(String::valueOf).collect(Collectors.joining(",")));
 
         DnaEntity dna1 = new DnaEntity(1L,"TTTTAT");
+        DnaEntity dna2 = new DnaEntity(2L,"GCAGGC");
+        DnaEntity dna3 = new DnaEntity(3L,"ACTGAC");
 
-        dnaRepository.save(dna1);
+        dnaRepository.saveAll(Arrays.asList(dna1,dna2,dna3));
     }
 }
