@@ -5,20 +5,18 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_dna")
-public class SimiosEntity implements Serializable {
+@Table(name = "dna")
+public class DnaEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String dna;
 
-
-    public SimiosEntity() {
-
+    public DnaEntity() {
     }
 
-    public SimiosEntity(Long id, String dna) {
+    public DnaEntity(Long id, String dna) {
         this.id = id;
         this.dna = dna;
     }
@@ -27,28 +25,28 @@ public class SimiosEntity implements Serializable {
         return id;
     }
 
-    public Long setId() {
-        return id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDna() {
         return dna;
     }
 
-    public String setDna() {
-        return dna;
+    public void setDna(String dna) {
+        this.dna = dna;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SimiosEntity that = (SimiosEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(dna, that.dna);
+        if (!(o instanceof DnaEntity)) return false;
+        DnaEntity dnaEntity = (DnaEntity) o;
+        return Objects.equals(getId(), dnaEntity.getId()) && Objects.equals(getDna(), dnaEntity.getDna());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dna);
+        return Objects.hash(getId(), getDna());
     }
 }
