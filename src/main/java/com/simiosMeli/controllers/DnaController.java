@@ -42,4 +42,10 @@ public class DnaController {
         dnaService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<DnaEntity> update(@PathVariable Long id, @RequestBody DnaEntity objDnaEntityUpdate) {
+        objDnaEntityUpdate = dnaService.update(id, objDnaEntityUpdate);
+        return ResponseEntity.ok().body(objDnaEntityUpdate);
+    }
 }

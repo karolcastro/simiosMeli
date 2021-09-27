@@ -4,10 +4,8 @@ package com.simiosMeli.services;
 import com.simiosMeli.entities.DnaEntity;
 import com.simiosMeli.repositories.DnaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.OpenOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +30,16 @@ public class DnaService {
 
     public void delete(Long id) {
         dnaRepository.deleteById(id);
+    }
+
+    public DnaEntity update(Long id, DnaEntity objDnaEntity) {
+        DnaEntity dna = dnaRepository.getById(id);
+        updateData(dna, objDnaEntity);
+        return  dnaRepository.save(dna);
+    }
+
+    private void updateData(DnaEntity dna, DnaEntity objDnaEntity) {
+        dna.setDna(objDnaEntity.getDna());
     }
 
     public boolean isSimian(String[] dnaSimios) {
