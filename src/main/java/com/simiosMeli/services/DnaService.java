@@ -26,6 +26,10 @@ public class DnaService {
         return optionalDnaEntity.get();
     }
 
+    public DnaEntity insert(DnaEntity objDnaEntity) {
+        return dnaRepository.save(objDnaEntity);
+    }
+
     public boolean isSimian(String[] dnaSimios) {
 
         return isSimianHorizontal(dnaSimios) || isSimianVertical(dnaSimios) || isSimianDiagonalPrincipalParaBaixo(dnaSimios) ||
