@@ -6,11 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class DnaService {
 
-    @Autowired
-    private DnaRepository dnaRepository;
-
-    public boolean findAll(String[] dnaSimios) {
-        Object obj = dnaRepository.findById(dnaSimios);
+    public boolean isSimian(String[] dnaSimios) {
 
         return isSimianHorizontal(dnaSimios) || isSimianVertical(dnaSimios) || isSimianDiagonalPrincipalParaBaixo(dnaSimios) ||
                 isSimianDiagonalPrincipalParaCima(dnaSimios) || isSimianDiagonalSecundariaParaCimaEsquerda(dnaSimios) || isSimianDiagonalSecundariaParaCimaDireita(dnaSimios);

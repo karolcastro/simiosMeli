@@ -1,4 +1,4 @@
-/*package com.simiosMeli.config;
+package com.simiosMeli.config;
 
 import com.simiosMeli.entities.DnaEntity;
 import com.simiosMeli.repositories.DnaRepository;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Configuration
 @Profile("test")
-public class DataBaseConfig implements CommandLineRunner {
+public class TestDataBaseConfig implements CommandLineRunner {
 
 
     @Autowired
@@ -22,10 +22,11 @@ public class DataBaseConfig implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        DnaEntity dna2 = new DnaEntity(Arrays.stream(new String[]{"CAGTAA", "TTTTAT", "GCAGGC", "ACTGAC", "TGAATC"}).sequential().map(String::valueOf).collect(Collectors.joining(",")));
 
-        System.out.println(dna2);
-        dnaRepository.save(dna2);
+        //DnaEntity dna2 = new DnaEntity(Arrays.stream(new String[]{"CAGTAA", "TTTTAT", "GCAGGC", "ACTGAC", "TGAATC"}).sequential().map(String::valueOf).collect(Collectors.joining(",")));
+
+        DnaEntity dna1 = new DnaEntity(1L,"TTTTAT");
+
+        dnaRepository.save(dna1);
     }
 }
-*/

@@ -23,8 +23,8 @@ public class SimiosMeliApplication {
 		String [] dnaSimios = new String[] {"CAGTAG", "TTTCAT", "GCAGGC", "ACTGAC", "TGAATC"};
 
 
-		boolean result = dnaService.findAll(dnaSimios);
-		System.out.println(String.format("O resultado é: %s", result));
+		//boolean result = dnaService.findAll(dnaSimios);
+		//System.out.println(String.format("O resultado é: %s", result));
 	}
 	}
 
