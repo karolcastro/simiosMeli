@@ -1,42 +1,53 @@
-/*package com.simiosMeli.controllers;
+package com.simiosMeli.controllers;
 
 import com.simiosMeli.entities.DnaEntity;
 import com.simiosMeli.services.DnaDataBaseService;
-import lombok.RequiredArgsConstructor;
+import com.simiosMeli.services.DnaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequiredArgsConstructor
+@RequestMapping(value = "/isSimian")
 public class DnaDataBaseController {
 
-    private final DnaDataBaseService dnaDataBaseService;
+    @Autowired
+    private DnaDataBaseService dnaDataBaseService;
 
-    @GetMapping(value = "/isSimian")
-    public List<String[]> finAll() {
-        return dnaDataBaseService.findAll();
-
+    @GetMapping
+    public ResponseEntity<List<DnaEntity>> finAll() {
+        List<DnaEntity> dnaList = dnaDataBaseService.findAll();
+        return ResponseEntity.ok().body(dnaList);
     }
-    @GetMapping(value = "/isSimian/{id}")
-    public String[] findById(@PathVariable Long id) {
-        return dnaDataBaseService.findById(id);
-    }
-
-    @PostMapping(value = "/isSimian/{id}")
-    public String[] insert(@RequestBody String[] objDnaEntity) {
-        return dnaDataBaseService.insert(objDnaEntity);
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<DnaEntity> findById(@PathVariable Long id) {
+        DnaEntity objDnaEntity = dnaDataBaseService.findById(id);
+        return ResponseEntity.ok().body(objDnaEntity);
     }
 
-    @DeleteMapping(value = "/isSimian/{id}")
-    public void delete(@PathVariable Long id) {
+    @PostMapping
+    public ResponseEntity<DnaEntity> insert(@RequestBody DnaEntity objDnaEntity) {
+        objDnaEntity = dnaDataBaseService.insert(objDnaEntity);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(objDnaEntity.getId()).toUri();
+        return ResponseEntity.created(uri).body(objDnaEntity);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         dnaDataBaseService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(value = "/isSimian/{id}")
-    public String[] update(@PathVariable Long id, @RequestBody DnaEntity objDnaEntityUpdate) {
-        return dnaDataBaseService.update(id, objDnaEntityUpdate);
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<DnaEntity> update(@PathVariable Long id, @RequestBody DnaEntity objDnaEntityUpdate) {
+        objDnaEntityUpdate = dnaDataBaseService.update(id, objDnaEntityUpdate);
+        return ResponseEntity.ok().body(objDnaEntityUpdate);
     }
 }
-*/

@@ -2,7 +2,6 @@ package com.simiosMeli.services;
 
 import com.simiosMeli.entities.DnaEntity;
 import com.simiosMeli.repositories.DnaRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,21 +9,21 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class DnaDataBaseService {
 
-    private final DnaRepository dnaRepository;
+    @Autowired
+    private DnaRepository dnaRepository;
 
-    public List<String[]> findAll() {
+    public List<DnaEntity> findAll() {
         return dnaRepository.findAll();
     }
 
-    public String[] findById(Long id) {
-        Optional<String[]> optionalDnaEntity = dnaRepository.findById(id);
+    public DnaEntity findById(Long id) {
+        Optional<DnaEntity> optionalDnaEntity = dnaRepository.findById(id);
         return optionalDnaEntity.get();
     }
 
-    public String[] insert(String[] objDnaEntity) {
+    public DnaEntity insert(DnaEntity objDnaEntity) {
         return dnaRepository.save(objDnaEntity);
     }
 
@@ -32,8 +31,9 @@ public class DnaDataBaseService {
         dnaRepository.deleteById(id);
     }
 
-    public String[] update(Long id, DnaEntity objDnaEntity) {
-        String[] dna = dnaRepository.getById(id);
+    public DnaEntity update(Long id, DnaEntity objDnaEntity) {
+        DnaEntity dna = dnaRepository.getById(id);
+        updateData(dna, objDnaEntity);
         return  dnaRepository.save(dna);
     }
 

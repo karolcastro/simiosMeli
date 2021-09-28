@@ -16,7 +16,7 @@ public class DnaController {
 
     @PostMapping(value = "/simian")
     public StatusDna isSimian(@RequestBody DnaEntity dnaEntityObj) {
-        return dnaService.isSimian(dnaEntityObj.getDna()) ? StatusDna.HUMANO : StatusDna.SIMIOS;
+        return dnaService.isSimian(dnaEntityObj.getDna()) ? StatusDna.SIMIOS : StatusDna.HUMANO;
     }
 
 }
