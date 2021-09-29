@@ -35,7 +35,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException(e.getMessage());
+            return false;
         }
         return false;
 
@@ -65,7 +65,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException(e.getMessage());
+            return false;
         }
         return false;
     }
@@ -96,7 +96,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException(e.getMessage());
+            return false;
         }
         return false;
 
@@ -107,11 +107,11 @@ public class DnaService {
         int sizeMatriz = dnaSimios.length;
         try {
 
-            for (int column = 0; column < sizeMatriz; column--) {
+            for (int column = 0; column >=0; column--) {
                 char letra = ' ';
                 int count = 0;
 
-                for (int line = sizeMatriz - 1; line >= 0; line++) {
+                for (int line = sizeMatriz - 1; line >= 0; line--) {
                     String dnaSquence = dnaSimios[line - column];
                     char dnaChar = dnaSquence.charAt(line);
 
@@ -127,7 +127,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException(e.getMessage());
+            return false;
         }
         return false;
 
@@ -158,7 +158,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException(e.getMessage());
+            return false;
         }
         return false;
 
@@ -178,8 +178,12 @@ public class DnaService {
                 for (int line = sizeMatriz - 1; line >= 0; line--) {
                     var dnaSimio = dnaSimios[line];
                     String dnaSquence = dnaSimios[line];
+                    int sum = column+count2;
+                    if ( sum < sizeMatriz-1)
+                    {
+                        count2++;
+                    }
                     char dnaChar = dnaSquence.charAt(column + count2);
-                    count2++;
 
                     if (letra != dnaChar) {
                         letra = dnaChar;
@@ -193,7 +197,7 @@ public class DnaService {
                 }
             }
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println(" Error");
+            return false;
         }
         return false;
     }
