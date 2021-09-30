@@ -28,7 +28,7 @@ public class TestDataBaseConfig implements CommandLineRunner {
 
         String[] dna = new String[] {"CAGA", "TTTA", "GCAA", "AAAA"};
 
-        boolean result = dnaService.isSimianHorizontal(dna);
+        boolean result = dnaService.isSimian(dna);
         System.out.println(String.format("O resultado é: %s", result));
     }
 }

@@ -1,4 +1,4 @@
-package com.simiosMeli.entities.enums;
+package com.simiosMeli.DTO.enums;
 
 public enum StatusDna {
     HUMANO,

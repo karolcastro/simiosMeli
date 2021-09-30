@@ -1,8 +1,8 @@
 package com.simiosMeli.repositories;
 
 
-import com.simiosMeli.entities.DnaEntity;
+import com.simiosMeli.DTO.DnaDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface DnaRepository extends JpaRepository<DnaEntity, Long> {
+public interface DnaRepository extends JpaRepository<DnaDto, Long> {
 }

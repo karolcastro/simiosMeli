@@ -1,11 +1,17 @@
 package com.simiosMeli.services;
 
+import com.simiosMeli.DTO.DnaDto;
+import com.simiosMeli.repositories.DnaRepository;
+import com.simiosMeli.services.exceptions.MatrizNaoQuadradaException;
+import com.simiosMeli.validations.ArrayValidation;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DnaService {
 
     public boolean isSimian(String[] dnaSimios) {
+
+        arrayValidation(dnaSimios);
 
         return isSimianHorizontal(dnaSimios) || isSimianVertical(dnaSimios) || isSimianDiagonalPrincipalParaBaixo(dnaSimios) ||
                 isSimianDiagonalPrincipalParaCima(dnaSimios) || isSimianDiagonalSecundariaParaCimaEsquerda(dnaSimios) || isSimianDiagonalSecundariaParaCimaDireita(dnaSimios);
@@ -35,7 +41,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
+            throw new MatrizNaoQuadradaException(dnaSimios);
         }
         return false;
 
@@ -65,7 +71,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
+            throw new MatrizNaoQuadradaException(dnaSimios);
         }
         return false;
     }
@@ -96,7 +102,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
+            throw new MatrizNaoQuadradaException(dnaSimios);
         }
         return false;
 
@@ -127,7 +133,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
+            throw new MatrizNaoQuadradaException(dnaSimios);
         }
         return false;
 
@@ -158,7 +164,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
+            throw new MatrizNaoQuadradaException(dnaSimios);
         }
         return false;
 
@@ -197,9 +203,15 @@ public class DnaService {
                 }
             }
         } catch (StringIndexOutOfBoundsException e) {
-            return false;
+            throw new MatrizNaoQuadradaException(dnaSimios);
         }
         return false;
+    }
+
+    public void arrayValidation(String[] array) throws MatrizNaoQuadradaException{
+        if (array == null || array.length < 4) {
+            throw new MatrizNaoQuadradaException();
+        }
     }
 }
 

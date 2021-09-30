@@ -1,7 +1,7 @@
 package com.simiosMeli.controller;
 
-import com.simiosMeli.entities.DnaEntity;
-import com.simiosMeli.entities.enums.StatusDna;
+import com.simiosMeli.DTO.DnaDto;
+import com.simiosMeli.DTO.enums.StatusDna;
 import com.simiosMeli.services.DnaService;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -30,7 +30,7 @@ public class DnaControllerTest {
     @Test
     public void shouldCheckIfIsSimian() {
         String[] dnaSimios = new String[]{"CAGTAG", "TTTTAT", "GCAGGC", "ACTGAC", "TGAATC"};
-        DnaEntity dna = new DnaEntity(dnaSimios);
+        DnaDto dna = new DnaDto(dnaSimios);
 
         when(dnaService.isSimian(dnaSimios)).thenReturn(false);
         final ResponseEntity<String> response = testRestTemplate.postForEntity("/simian", dna, String.class);
