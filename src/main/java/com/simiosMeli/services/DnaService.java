@@ -11,7 +11,7 @@ public class DnaService {
                 isSimianDiagonalPrincipalParaCima(dnaSimios) || isSimianDiagonalSecundariaParaCimaEsquerda(dnaSimios) || isSimianDiagonalSecundariaParaCimaDireita(dnaSimios);
     }
 
-    public boolean isSimianHorizontal(String[] dnaSimios) {
+    public static boolean isSimianHorizontal(String[] dnaSimios) {
         try {
             int sizeMatriz = dnaSimios.length;
 

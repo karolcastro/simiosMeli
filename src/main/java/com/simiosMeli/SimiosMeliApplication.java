@@ -1,8 +1,7 @@
 package com.simiosMeli;
 
 //import com.simiosMeli.dataBase.DB;
-import com.simiosMeli.entities.DnaEntity;
-import com.simiosMeli.services.DnaService;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

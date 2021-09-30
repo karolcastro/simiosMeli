@@ -5,21 +5,20 @@ import com.simiosMeli.entities.enums.StatusDna;
 import com.simiosMeli.services.DnaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping( "/simian")
 public class DnaController {
 
     private final DnaService dnaService;
 
-    @PostMapping(value = "/simian")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StatusDna isSimian(@RequestBody DnaEntity dnaEntityObj) {
-        return dnaService.isSimian(dnaEntityObj.getDna()) ? StatusDna.SIMIOS : StatusDna.HUMANO;
+    public String isSimian(@RequestBody DnaEntity dnaEntityObj) {
+        return dnaService.isSimian(dnaEntityObj.getDna()) ? StatusDna.SIMIOS.name() : StatusDna.HUMANO.name();
+
     }
 
 }

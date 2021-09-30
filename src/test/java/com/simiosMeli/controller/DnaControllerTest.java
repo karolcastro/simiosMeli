@@ -1,43 +1,41 @@
 package com.simiosMeli.controller;
 
 import com.simiosMeli.entities.DnaEntity;
-import com.simiosMeli.repositories.DnaRepository;
+import com.simiosMeli.entities.enums.StatusDna;
 import com.simiosMeli.services.DnaService;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.mockito.Mockito.when;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+
 @RunWith(SpringRunner.class)
-@DataJpaTest
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 public class DnaControllerTest {
 
-    public static final Long DNA_ID = 1L;
 
-    public static final String[] DNA_SEQUENCE =  {"CAGAT","GTGAT","GGAAT","GCAGC","TTAGC" };
-
+    @MockBean
+    private DnaService dnaService;
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    @Autowired
-    public DnaRepository dnaRepository;
-
     @Test
-    public void shouldCheckIfIsHuman() {
-        final DnaEntity dna = new DnaEntity(DNA_ID, DNA_SEQUENCE);
-        this.dnaRepository.save(dna);
+    public void shouldCheckIfIsSimian() {
+        String[] dnaSimios = new String[]{"CAGTAG", "TTTTAT", "GCAGGC", "ACTGAC", "TGAATC"};
+        DnaEntity dna = new DnaEntity(dnaSimios);
 
-        //final var response = this.testRestTemplate.postForEntity("/simian",null,DnaEntity.class);
-        Assertions.assertEquals(HttpStatus.CREATED, dna.getDna());
+        when(dnaService.isSimian(dnaSimios)).thenReturn(false);
+        final ResponseEntity<String> response = testRestTemplate.postForEntity("/simian", dna, String.class);
 
+        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        Assertions.assertEquals(StatusDna.HUMANO.name(), response.getBody());
     }
-
 }

@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class DnaServiceTest {
+
     private DnaService dnaService = new DnaService();
 
     @Test

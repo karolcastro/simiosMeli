@@ -1,17 +1,10 @@
 package com.simiosMeli.config;
 
-import com.simiosMeli.entities.DnaEntity;
 import com.simiosMeli.repositories.DnaRepository;
 import com.simiosMeli.services.DnaService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-
-import java.sql.Connection;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 //@Configuration
 @RequiredArgsConstructor
