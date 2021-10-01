@@ -14,13 +14,12 @@ public class DnaDataBaseService {
     @Autowired
     private DnaRepository dnaRepository;
 
-    public List<DnaDto> findAll() {
-
+    public List<String[]> findAll() {
         return dnaRepository.findAll();
     }
 
-    public DnaDto findById(Long id) {
-        Optional<DnaDto> optionalDnaEntity = dnaRepository.findById(id);
+    public String[] findById(Long id) {
+        Optional<String[]> optionalDnaEntity = dnaRepository.findById(id);
         return optionalDnaEntity.get();
     }
 
@@ -29,6 +28,7 @@ public class DnaDataBaseService {
     }
 
     public void delete(Long id) {
+
         dnaRepository.deleteById(id);
     }
 
@@ -39,6 +39,8 @@ public class DnaDataBaseService {
     }
 
     private void updateData(DnaDto dna, DnaDto objDnaEntity) {
+
         dna.setDna(objDnaEntity.getDna());
     }
+
 }

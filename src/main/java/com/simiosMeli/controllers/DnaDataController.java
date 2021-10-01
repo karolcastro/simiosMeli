@@ -18,14 +18,14 @@ public class DnaDataController {
     private DnaDataBaseService dnaDataBaseService;
 
     @GetMapping
-    public ResponseEntity<List<DnaDto>> finAll() {
-        List<DnaDto> dnaList = dnaDataBaseService.findAll();
+    public ResponseEntity<List<String[]>> finAll() {
+        List<String[]> dnaList = dnaDataBaseService.findAll();
         return ResponseEntity.ok().body(dnaList);
     }
     @GetMapping(value = "/{id}")
-    public ResponseEntity<DnaDto> findById(@PathVariable Long id) {
-        DnaDto objDnaEntity = dnaDataBaseService.findById(id);
-        return ResponseEntity.ok().body(objDnaEntity);
+    public Long findById(@PathVariable Long id) {
+        Long objDnaEntity = dnaDataBaseService.findById(id);
+        return dnaDataBaseService.findById(objDnaEntity);
     }
 
     @PostMapping

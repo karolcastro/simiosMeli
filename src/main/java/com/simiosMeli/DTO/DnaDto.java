@@ -43,11 +43,7 @@ public class DnaDto implements Serializable {
     public void setDna(String[] dna) {
         this.dna = dna;
     }
-
-    public double getSubTotal() {
-        id ++;
-        return 0;
-    }
+    
 
     @Override
     public boolean equals(Object o) {
