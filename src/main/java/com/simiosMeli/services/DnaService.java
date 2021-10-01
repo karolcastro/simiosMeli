@@ -13,9 +13,10 @@ import java.util.Set;
 @Service
 public class DnaService {
 
+    private DnaDataBaseService dnaDataBaseService;
+
 
     public boolean isSimian(String[] dnaSimios) {
-
 
         arrayValidation(dnaSimios);
         sequenceValidation(dnaSimios);
