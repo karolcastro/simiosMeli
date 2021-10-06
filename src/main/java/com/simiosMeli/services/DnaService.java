@@ -1,51 +1,63 @@
 package com.simiosMeli.services;
 
 import com.simiosMeli.DTO.DnaDto;
+import com.simiosMeli.DTO.enums.StatusDna;
 import com.simiosMeli.repositories.DnaRepository;
-import com.simiosMeli.services.exceptions.MatrizNaoQuadradaException;
-import com.simiosMeli.validations.ArrayValidation;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 public class DnaService {
 
     private DnaDataBaseService dnaDataBaseService;
 
+    private DnaRepository dnaRepository;
+
+    @Autowired
+    private DnaService dnaService;
+
 
     public boolean isSimian(String[] dnaSimios) {
 
         arrayValidation(dnaSimios);
-        sequenceValidation(dnaSimios);
+        //sequenceValidation(dnaSimios);
 
-        return isSimianHorizontal(dnaSimios) || isSimianVertical(dnaSimios) || isSimianDiagonalPrincipalParaBaixo(dnaSimios) ||
-                isSimianDiagonalPrincipalParaCima(dnaSimios) || isSimianDiagonalSecundariaParaCimaEsquerda(dnaSimios) || isSimianDiagonalSecundariaParaCimaDireita(dnaSimios);
+        if (isSimianHorizontal(dnaSimios) || isSimianVertical(dnaSimios) || isSimianDiagonalPrincipalParaBaixo(dnaSimios) ||
+                isSimianDiagonalPrincipalParaCima(dnaSimios) || isSimianDiagonalSecundariaParaCimaEsquerda(dnaSimios)
+                || isSimianDiagonalSecundariaParaCimaDireita(dnaSimios)) {
+            DnaDto dna = new DnaDto();
+            dna.setDna(dnaSimios);
+            dna.setStatusDna(dnaService.isSimian(dnaSimios) ? StatusDna.SIMIOS : StatusDna.HUMANO);
+            dnaRepository.save(dna);
+        } else {
+            throw new Error("Matriz não quadrada");
+        }
+        return false;
     }
 
     public static void arrayValidation(String[] dnaSimios) throws ArrayIndexOutOfBoundsException {
         if (dnaSimios.length < 4 || dnaSimios == null) {
-            throw new  Error("Dna não pode estar vazio ou menor que uma sequencia de 4");
+            throw new Error("Matriz não quadrada");
         }
     }
 
-    public static void sequenceValidation(String[] dnaSimios) {
-
-        Set sequenceValidDna = new HashSet<>(Arrays.asList("A","T","C","G"));
-
-        for (int i =0; i < dnaSimios.length; i++){
-            for (int j = 0; j < dnaSimios.length; j++) {
-                if (!sequenceValidDna.contains(dnaSimios[i])){
-                    throw new  Error("Sequencia de DNA inválida");
-                }
-                if (!sequenceValidDna.contains(dnaSimios[j])) {
-                    throw new  Error("Sequencia de DNA inválida");
-                }
-            }
-        }
-    }
+//    public static void sequenceValidation(String[] dnaSimios) {
+//
+//        Set sequenceValidDna = new HashSet<>(Arrays.asList("A","T","C","G"));
+//
+//        for (int i =0; i < dnaSimios.length; i++){
+//            for (int j = 0; j < dnaSimios.length; j++) {
+//                if (!sequenceValidDna.contains(dnaSimios[i])){
+//                    throw new  Error("Sequencia de DNA inválida");
+//                }
+//                if (!sequenceValidDna.contains(dnaSimios[j])) {
+//                    throw new  Error("Sequencia de DNA inválida");
+//                }
+//            }
+//        }
+//    }
 
     public static boolean isSimianHorizontal(String[] dnaSimios) {
         try {
@@ -71,7 +83,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new MatrizNaoQuadradaException(dnaSimios);
+            return false;
         }
         return false;
 
@@ -101,7 +113,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new MatrizNaoQuadradaException(dnaSimios);
+            return false;
         }
         return false;
     }
@@ -132,7 +144,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new MatrizNaoQuadradaException(dnaSimios);
+            return false;
         }
         return false;
 
@@ -163,7 +175,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new MatrizNaoQuadradaException(dnaSimios);
+            return false;
         }
         return false;
 
@@ -194,7 +206,7 @@ public class DnaService {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new MatrizNaoQuadradaException(dnaSimios);
+            return false;
         }
         return false;
 
@@ -232,7 +244,7 @@ public class DnaService {
                 }
             }
         } catch (StringIndexOutOfBoundsException e) {
-            throw new MatrizNaoQuadradaException(dnaSimios);
+            return false;
         }
         return false;
     }

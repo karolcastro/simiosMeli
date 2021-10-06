@@ -15,7 +15,7 @@ public class DnaDto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String[] dna;
+    private String dna;
 
     private StatusDna statusDna;
 
@@ -34,14 +34,17 @@ public class DnaDto implements Serializable {
     }
 
     public Long getId() {
+
         return id;
     }
 
     public void setId(Long id) {
+
         this.id = id;
     }
 
     public String[] getDna() {
+
         return dna;
     }
 
@@ -50,6 +53,7 @@ public class DnaDto implements Serializable {
     }
 
     public StatusDna getStatusDna() {
+
         return statusDna;
     }
 
