@@ -23,11 +23,6 @@ public class DnaDataController {
     @Autowired
     private DnaService dnaService;
 
-    @GetMapping
-    public ResponseEntity<List<DnaDto>> findAll(StatusDna statusDna) {
-        List <DnaDto> dnaStatusList = dnaDataBaseService.findAll(statusDna);
-        return ResponseEntity.ok().body(dnaStatusList);
-    }
 
     @GetMapping(value = "/{dna}")
     public ResponseEntity <DnaDto> findByDna(@PathVariable String[] dnaDto){
@@ -35,6 +30,13 @@ public class DnaDataController {
         return ResponseEntity.ok().body(dnaList);
 
     }
+
+    @GetMapping
+    public ResponseEntity<List<DnaDto>> findAll(StatusDna statusDna) {
+        List <DnaDto> dnaStatusList = dnaDataBaseService.findAll(statusDna);
+        return ResponseEntity.ok().body(dnaStatusList);
+    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

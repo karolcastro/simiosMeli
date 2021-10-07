@@ -1,18 +1,17 @@
 package com.simiosMeli.services;
 
-import com.simiosMeli.DTO.DnaDto;
 import com.simiosMeli.DTO.enums.StatusDna;
 import com.simiosMeli.repositories.DnaRepository;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DnaService {
 
+    @Autowired
     private DnaDataBaseService dnaDataBaseService;
 
+    @Autowired
     private DnaRepository dnaRepository;
 
     @Autowired
@@ -27,19 +26,19 @@ public class DnaService {
         if (isSimianHorizontal(dnaSimios) || isSimianVertical(dnaSimios) || isSimianDiagonalPrincipalParaBaixo(dnaSimios) ||
                 isSimianDiagonalPrincipalParaCima(dnaSimios) || isSimianDiagonalSecundariaParaCimaEsquerda(dnaSimios)
                 || isSimianDiagonalSecundariaParaCimaDireita(dnaSimios)) {
-            DnaDto dna = new DnaDto();
-            dna.setDna(dnaSimios);
-            dna.setStatusDna(dnaService.isSimian(dnaSimios) ? StatusDna.SIMIOS : StatusDna.HUMANO);
-            dnaRepository.save(dna);
+
+           StatusDna statusDna = isSimian(dnaSimios) ? StatusDna.SIMIOS : StatusDna.HUMANO;
+           dnaDataBaseService.saveDna(statusDna);
+
         } else {
-            throw new Error("Matriz não quadrada");
+            throw new Error("Matriz não criada");
         }
         return false;
     }
 
     public static void arrayValidation(String[] dnaSimios) throws ArrayIndexOutOfBoundsException {
-        if (dnaSimios.length < 4 || dnaSimios == null) {
-            throw new Error("Matriz não quadrada");
+        if (dnaSimios.length < 4) {
+            throw new Error("Matriz precisa ser maior que 4");
         }
     }
 
@@ -54,10 +53,10 @@ public class DnaService {
 //                }
 //                if (!sequenceValidDna.contains(dnaSimios[j])) {
 //                    throw new  Error("Sequencia de DNA inválida");
-//                }
-//            }
-//        }
-//    }
+               //}
+           // }
+       // }
+   // }
 
     public static boolean isSimianHorizontal(String[] dnaSimios) {
         try {

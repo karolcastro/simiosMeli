@@ -25,35 +25,37 @@ public class DnaDto implements Serializable {
 
     public DnaDto(Long id, String[] dna, StatusDna statusDna) {
         this.id = id;
-        this.dna = dna;
+        this.dna = convertDna(dna);
         this.statusDna = statusDna;
 
     }
 
-    public DnaDto(String[] dnaSimios) {
+    public String convertDna(String[] dna) {
+        String result = null;
+        for (int i = 0; i < dna.length; i++) {
+            result += dna[i];
+        }
+        return result;
     }
 
     public Long getId() {
-
         return id;
     }
 
     public void setId(Long id) {
-
         this.id = id;
     }
 
     public String[] getDna() {
-
-        return dna;
+        return new String[0];
     }
 
+
     public void setDna(String[] dna) {
-        this.dna = dna;
+        this.dna = convertDna(dna);
     }
 
     public StatusDna getStatusDna() {
-
         return statusDna;
     }
 
@@ -75,4 +77,5 @@ public class DnaDto implements Serializable {
         result = 31 * result + Arrays.hashCode(getDna());
         return result;
     }
+
 }
