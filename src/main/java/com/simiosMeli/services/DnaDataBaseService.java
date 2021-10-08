@@ -13,7 +13,6 @@ import java.util.Objects;
 @Service
 public class DnaDataBaseService {
 
-    @Autowired
     private DnaRepository dnaRepository;
 
     private DnaService dnaService;

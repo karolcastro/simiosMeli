@@ -8,19 +8,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class DnaService {
 
-    @Autowired
     private DnaDataBaseService dnaDataBaseService;
 
-    @Autowired
     private DnaRepository dnaRepository;
 
-    @Autowired
+
     private DnaService dnaService;
 
 
     public boolean isSimian(String[] dnaSimios) {
 
-        arrayValidation(dnaSimios);
+        //arrayValidation(dnaSimios);
         //sequenceValidation(dnaSimios);
 
         if (isSimianHorizontal(dnaSimios) || isSimianVertical(dnaSimios) || isSimianDiagonalPrincipalParaBaixo(dnaSimios) ||
