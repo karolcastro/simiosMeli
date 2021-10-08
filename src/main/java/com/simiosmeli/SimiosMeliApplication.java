@@ -1,12 +1,14 @@
-package com.simiosMeli;
+package com.simiosmeli;
 
 //import com.simiosMeli.dataBase.DB;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.sql.SQLException;
 
+@EnableJpaRepositories
 @SpringBootApplication
 public class SimiosMeliApplication {
 

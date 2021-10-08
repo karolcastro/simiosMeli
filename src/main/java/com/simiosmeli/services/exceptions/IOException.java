@@ -1,4 +1,4 @@
-package com.simiosMeli.services.exceptions;
+package com.simiosmeli.services.exceptions;
 
 public class IOException extends RuntimeException{
     public IOException (Object dna){

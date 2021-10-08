@@ -1,4 +1,4 @@
-package com.simiosMeli;
+package com.simiosmeli;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.simiosMeli.services.exceptions;
+package com.simiosmeli.services.exceptions;
 
 import java.util.Arrays;
 

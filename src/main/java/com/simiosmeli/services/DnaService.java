@@ -1,60 +1,33 @@
-package com.simiosMeli.services;
+package com.simiosmeli.services;
 
-import com.simiosMeli.DTO.enums.StatusDna;
-import com.simiosMeli.repositories.DnaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.simiosmeli.model.Dna;
+import com.simiosmeli.model.enums.TypeDna;
+import com.simiosmeli.repositories.DnaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class DnaService {
 
-    private DnaDataBaseService dnaDataBaseService;
 
-    private DnaRepository dnaRepository;
-
-
-    private DnaService dnaService;
-
+    private final DnaRepository dnaRepository;
 
     public boolean isSimian(String[] dnaSimios) {
-
-        //arrayValidation(dnaSimios);
-        //sequenceValidation(dnaSimios);
-
-        if (isSimianHorizontal(dnaSimios) || isSimianVertical(dnaSimios) || isSimianDiagonalPrincipalParaBaixo(dnaSimios) ||
+        return isSimianHorizontal(dnaSimios) || isSimianVertical(dnaSimios) || isSimianDiagonalPrincipalParaBaixo(dnaSimios) ||
                 isSimianDiagonalPrincipalParaCima(dnaSimios) || isSimianDiagonalSecundariaParaCimaEsquerda(dnaSimios)
-                || isSimianDiagonalSecundariaParaCimaDireita(dnaSimios)) {
-
-           StatusDna statusDna = isSimian(dnaSimios) ? StatusDna.SIMIOS : StatusDna.HUMANO;
-           dnaDataBaseService.saveDna(statusDna);
-
-        } else {
-            throw new Error("Matriz não criada");
-        }
-        return false;
+                || isSimianDiagonalSecundariaParaCimaDireita(dnaSimios);
     }
 
-    public static void arrayValidation(String[] dnaSimios) throws ArrayIndexOutOfBoundsException {
-        if (dnaSimios.length < 4) {
-            throw new Error("Matriz precisa ser maior que 4");
-        }
+    public TypeDna saveDna(String[] dnaSimios) {
+        boolean isSimian = this.isSimian(dnaSimios);
+        TypeDna typeDna = isSimian ? TypeDna.SIMIOS : TypeDna.HUMANO;
+        dnaRepository.save(new Dna(dnaSimios, typeDna));
+        return typeDna;
+
     }
 
-//    public static void sequenceValidation(String[] dnaSimios) {
-//
-//        Set sequenceValidDna = new HashSet<>(Arrays.asList("A","T","C","G"));
-//
-//        for (int i =0; i < dnaSimios.length; i++){
-//            for (int j = 0; j < dnaSimios.length; j++) {
-//                if (!sequenceValidDna.contains(dnaSimios[i])){
-//                    throw new  Error("Sequencia de DNA inválida");
-//                }
-//                if (!sequenceValidDna.contains(dnaSimios[j])) {
-//                    throw new  Error("Sequencia de DNA inválida");
-               //}
-           // }
-       // }
-   // }
+
 
     public static boolean isSimianHorizontal(String[] dnaSimios) {
         try {
