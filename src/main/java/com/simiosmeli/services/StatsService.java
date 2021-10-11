@@ -18,8 +18,14 @@ public class StatsService {
 
         int countSimios = dnaRepository.countAllByType(TypeDna.SIMIOS);
 
-        double ratio = countHuman != 0 ? countSimios / countHuman : countSimios;
+        double ratio;
 
+        if (countHuman == 0 ) {
+            ratio = countSimios;
+        }
+        else {
+             ratio = countSimios / countHuman;
+        }
         return new StatsDTO(countSimios, countHuman, ratio);
     }
 }

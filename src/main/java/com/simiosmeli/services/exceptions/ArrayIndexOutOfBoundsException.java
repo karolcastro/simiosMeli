@@ -1,9 +1,11 @@
 package com.simiosmeli.services.exceptions;
 
+import java.util.Arrays;
+
 public class ArrayIndexOutOfBoundsException extends RuntimeException{
 
-    public ArrayIndexOutOfBoundsException (Object dna){
+    public ArrayIndexOutOfBoundsException (String[] dna){
 
-        super("DNA " + dna + " not found. ");
+        super("Matriz DNA " + Arrays.toString(dna) + " não é uma matriz quadrada. ");
     }
 }

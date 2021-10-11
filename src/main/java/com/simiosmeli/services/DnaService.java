@@ -1,19 +1,27 @@
 package com.simiosmeli.services;
 
+import com.simiosmeli.controllers.dto.DnaDTO;
 import com.simiosmeli.model.Dna;
 import com.simiosmeli.model.enums.TypeDna;
 import com.simiosmeli.repositories.DnaRepository;
+import com.simiosmeli.services.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
 public class DnaService {
 
-
     private final DnaRepository dnaRepository;
 
     public boolean isSimian(String[] dnaSimios) {
+        //validationDna(dnaSimios);
+        arrayValid(dnaSimios);
+
         return isSimianHorizontal(dnaSimios) || isSimianVertical(dnaSimios) || isSimianDiagonalPrincipalParaBaixo(dnaSimios) ||
                 isSimianDiagonalPrincipalParaCima(dnaSimios) || isSimianDiagonalSecundariaParaCimaEsquerda(dnaSimios)
                 || isSimianDiagonalSecundariaParaCimaDireita(dnaSimios);
@@ -28,9 +36,34 @@ public class DnaService {
     }
 
 
+    public DnaDTO arrayValid(String[] dnaDTO) throws StringIndexOutOfBoundsException {
+        if (dnaDTO.length < 4) {
+            throw new Error("Matriz precisa ser maior que 4");
+        }
+        return null;
+    }
+
+    public DnaDTO validationDna(String[] dnaSimios) throws ResourceNotFoundException {
+
+        final Set<String> DNA_LETTER = new HashSet<>(Arrays.asList("A", "G", "C", "T"));
+
+        for (int i = 0; i < dnaSimios.length; i++) {
+            for (int j = 0; j < dnaSimios.length; j++) {
+                if (!DNA_LETTER.contains(dnaSimios[i])) {
+                    throw new ResourceNotFoundException();
+                }
+                if (!DNA_LETTER.contains(dnaSimios[j])) {
+                    throw new ResourceNotFoundException();
+                }
+            }
+        }
+        return null;
+    }
 
     public static boolean isSimianHorizontal(String[] dnaSimios) {
+
         try {
+
             int sizeMatriz = dnaSimios.length;
 
             for (int line = 0; line < sizeMatriz; line++) {
