@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/isSimian")
-public class DnaDataController {
+public class DnaController {
 
     @Autowired
     private DnaService dnaService;
@@ -18,6 +18,7 @@ public class DnaDataController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TypeDna isSimian(@RequestBody DnaDTO dnaDto) {
+
         return dnaService.saveDna(dnaDto.getDna());
     }
 

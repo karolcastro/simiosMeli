@@ -19,8 +19,9 @@ public class DnaService {
     private final DnaRepository dnaRepository;
 
     public boolean isSimian(String[] dnaSimios) {
-        //validationDna(dnaSimios);
+
         arrayValid(dnaSimios);
+        //validationDna(dnaSimios);
 
         return isSimianHorizontal(dnaSimios) || isSimianVertical(dnaSimios) || isSimianDiagonalPrincipalParaBaixo(dnaSimios) ||
                 isSimianDiagonalPrincipalParaCima(dnaSimios) || isSimianDiagonalSecundariaParaCimaEsquerda(dnaSimios)
@@ -36,14 +37,14 @@ public class DnaService {
     }
 
 
-    public DnaDTO arrayValid(String[] dnaDTO) throws StringIndexOutOfBoundsException {
+    private DnaDTO arrayValid(String[] dnaDTO) throws StringIndexOutOfBoundsException {
         if (dnaDTO.length < 4) {
-            throw new Error("Matriz precisa ser maior que 4");
+            throw new StringIndexOutOfBoundsException();
         }
         return null;
     }
 
-    public DnaDTO validationDna(String[] dnaSimios) throws ResourceNotFoundException {
+    private DnaDTO validationDna(String[] dnaSimios) throws ResourceNotFoundException {
 
         final Set<String> DNA_LETTER = new HashSet<>(Arrays.asList("A", "G", "C", "T"));
 
@@ -60,9 +61,7 @@ public class DnaService {
         return null;
     }
 
-    public static boolean isSimianHorizontal(String[] dnaSimios) {
-
-        try {
+    private static boolean isSimianHorizontal(String[] dnaSimios) {
 
             int sizeMatriz = dnaSimios.length;
 
@@ -85,17 +84,14 @@ public class DnaService {
                     }
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
-        }
         return false;
 
     }
 
-    public static boolean isSimianVertical(String[] dnaSimios) {
+    private static boolean isSimianVertical(String[] dnaSimios) {
         int sizeMatriz = dnaSimios.length;
 
-        try {
+
             for (int column = 0; column < sizeMatriz; column++) {
                 char letra = ' ';
                 int count = 0;
@@ -115,17 +111,15 @@ public class DnaService {
                     }
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
-        }
+
         return false;
     }
 
-    public static boolean isSimianDiagonalPrincipalParaBaixo(String[] dnaSimios) {
+    private static boolean isSimianDiagonalPrincipalParaBaixo(String[] dnaSimios) {
 
         int sizeMatriz = dnaSimios.length;
 
-        try {
+
             for (int column = sizeMatriz - 1; column < sizeMatriz; column++) {
                 char letra = ' ';
                 int count = 0;
@@ -146,17 +140,15 @@ public class DnaService {
                     }
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
-        }
+
         return false;
 
     }
 
-    public static boolean isSimianDiagonalPrincipalParaCima(String[] dnaSimios) {
+    private static boolean isSimianDiagonalPrincipalParaCima(String[] dnaSimios) {
 
         int sizeMatriz = dnaSimios.length;
-        try {
+
 
             for (int column = 0; column >= 0; column--) {
                 char letra = ' ';
@@ -177,18 +169,16 @@ public class DnaService {
                     }
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
-        }
+
         return false;
 
     }
 
-    public static boolean isSimianDiagonalSecundariaParaCimaEsquerda(String[] dnaSimios) {
+    private static boolean isSimianDiagonalSecundariaParaCimaEsquerda(String[] dnaSimios) {
 
         int sizeMatriz = dnaSimios.length;
 
-        try {
+
             for (int column = sizeMatriz - 1; column >= 0; column--) {
                 char letra = ' ';
                 int count = 0;
@@ -208,19 +198,16 @@ public class DnaService {
                     }
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
-        }
+
         return false;
 
     }
 
-    public static boolean isSimianDiagonalSecundariaParaCimaDireita(String[] dnaSimios) {
+    private static boolean isSimianDiagonalSecundariaParaCimaDireita(String[] dnaSimios) {
 
         int sizeMatriz = dnaSimios.length;
         boolean result = false;
 
-        try {
             for (int column = 0; column < sizeMatriz; column++) {
                 char letra = ' ';
                 int count = 0;
@@ -246,9 +233,6 @@ public class DnaService {
                     }
                 }
             }
-        } catch (StringIndexOutOfBoundsException e) {
-            return false;
-        }
         return false;
     }
 
