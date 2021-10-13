@@ -1,14 +1,12 @@
 package com.simiosmeli.service;
 
-import com.simiosmeli.model.enums.TypeDna;
-import com.simiosmeli.repositories.DnaRepository;
 import com.simiosmeli.services.DnaService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.mock.mockito.MockBean;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class DnaServiceTest {
