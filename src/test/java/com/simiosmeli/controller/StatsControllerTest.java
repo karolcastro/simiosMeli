@@ -33,7 +33,6 @@ public class StatsControllerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    private  StatsController statsController;
 
     @Test
     public void shouldCheckIfReturnHttp200Ok() {
@@ -51,17 +50,16 @@ public class StatsControllerTest {
     @Test
     public void shouldReturnStatsDto() {
 
-        StatsDTO statsDTO = new StatsDTO(10, 5,0.5);
-
-        StatsDTO stats = new StatsDTO(statsDTO);
+        StatsDTO statsDTO = new StatsDTO(10, 10,0.5);
 
         when(statsService.getStats()).thenReturn(statsDTO);
 
         final ResponseEntity<StatsDTO> response = testRestTemplate.getForEntity("/stats",StatsDTO.class);
 
-        Assertions.assertEquals(response.getBody(), response.getBody()); /// TODO: 13/10/21
+        Assertions.assertEquals(10, statsDTO.getCountSimiosDna());
+        Assertions.assertEquals(10, statsDTO.getCountSimiosDna());
+        Assertions.assertEquals(0.5, statsDTO.getRatio());
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-
     }
 
 }

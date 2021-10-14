@@ -44,7 +44,7 @@ public class DnaControllerTest {
     }
 
     @Test
-    public void shouldCheckIfIsSimian() {
+    public void shouldCheckIfIsHuman() {
         String[] dnaSimios = new String[]{"CAGTAG", "TTTTAT", "GCAGGC", "ACTGAC", "TGAATC"};
 
         DnaDTO dna = new DnaDTO(dnaSimios);
@@ -58,7 +58,7 @@ public class DnaControllerTest {
     }
 
     @Test
-    public void shouldCheckIfIsHuman() {
+    public void shouldCheckIfIsSimian() {
         String[] dnaSimios = new String[]{"CAGTAG", "TTTTAT", "GCAGGC", "ACTGAC", "TGAATC"};
 
         DnaDTO dna = new DnaDTO(dnaSimios);

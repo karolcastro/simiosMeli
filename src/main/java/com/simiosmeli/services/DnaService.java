@@ -4,7 +4,8 @@ import com.simiosmeli.controllers.dto.DnaDTO;
 import com.simiosmeli.model.Dna;
 import com.simiosmeli.model.enums.TypeDna;
 import com.simiosmeli.repositories.DnaRepository;
-import com.simiosmeli.services.exceptions.ResourceNotFoundException;
+import com.simiosmeli.services.exceptions.InvalidSizeMatriz;
+import com.simiosmeli.services.exceptions.InvalidLetters;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class DnaService {
     public boolean isSimian(String[] dnaSimios) {
 
         arrayValid(dnaSimios);
-        //validationDna(dnaSimios);
+        validationDna(dnaSimios);
 
         return isSimianHorizontal(dnaSimios) || isSimianVertical(dnaSimios) || isSimianDiagonalPrincipalParaBaixo(dnaSimios) ||
                 isSimianDiagonalPrincipalParaCima(dnaSimios) || isSimianDiagonalSecundariaParaCimaEsquerda(dnaSimios)
@@ -39,22 +40,22 @@ public class DnaService {
 
     private DnaDTO arrayValid(String[] dnaDTO) throws StringIndexOutOfBoundsException {
         if (dnaDTO.length < 4) {
-            throw new StringIndexOutOfBoundsException();
+            throw new InvalidSizeMatriz(dnaDTO);
         }
         return null;
     }
 
-    private DnaDTO validationDna(String[] dnaSimios) throws ResourceNotFoundException {
+    private DnaDTO validationDna(String[] dnaSimios) throws InvalidLetters {
 
         final Set<String> DNA_LETTER = new HashSet<>(Arrays.asList("A", "G", "C", "T"));
 
         for (int i = 0; i < dnaSimios.length; i++) {
             for (int j = 0; j < dnaSimios.length; j++) {
                 if (!DNA_LETTER.contains(dnaSimios[i])) {
-                    throw new ResourceNotFoundException();
+                    throw new InvalidLetters(dnaSimios);
                 }
                 if (!DNA_LETTER.contains(dnaSimios[j])) {
-                    throw new ResourceNotFoundException();
+                    throw new InvalidLetters(dnaSimios);
                 }
             }
         }
@@ -65,10 +66,12 @@ public class DnaService {
 
             int sizeMatriz = dnaSimios.length;
 
+
             for (int line = 0; line < sizeMatriz; line++) {
                 char letra = ' ';
                 int count = 0;
 
+                try{
                 for (int column = 0; column < sizeMatriz; column++) {
                     String dnaSquence = dnaSimios[line];
                     char dnaChar = dnaSquence.charAt(column);
@@ -83,7 +86,12 @@ public class DnaService {
                         return true;
                     }
                 }
+
+            }catch (StringIndexOutOfBoundsException e) {
+                    throw new InvalidSizeMatriz(dnaSimios);
+                }
             }
+
         return false;
 
     }
@@ -183,19 +191,24 @@ public class DnaService {
                 char letra = ' ';
                 int count = 0;
 
-                for (int line = 0; line < sizeMatriz - 1; line++) {
-                    String dnaSquence = dnaSimios[column - line];
-                    char dnaChar = dnaSquence.charAt(line);
+                try {
+                    for (int line = 0; line < sizeMatriz - 1; line++) {
+                        String dnaSquence = dnaSimios[column - line];
+                        char dnaChar = dnaSquence.charAt(line);
 
-                    if (letra != dnaChar) {
-                        letra = dnaChar;
-                        count = 1;
-                    } else {
-                        count++;
+                        if (letra != dnaChar) {
+                            letra = dnaChar;
+                            count = 1;
+                        } else {
+                            count++;
+                        }
+                        if (count == 4) {
+                            return true;
+                        }
                     }
-                    if (count == 4) {
-                        return true;
-                    }
+                }
+                catch (ArrayIndexOutOfBoundsException e) {
+                    throw new InvalidLetters(dnaSimios);
                 }
             }
 
