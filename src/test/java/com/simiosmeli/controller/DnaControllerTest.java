@@ -30,21 +30,6 @@ public class DnaControllerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-
-    @Test
-    public void shouldCheckIfIsSimian() {
-        String[] dnaSimios = new String[]{"CAGTAG", "TTTTAT", "GCAGGC", "ACTGAC", "TGAATC"};
-
-        DnaDTO dna = new DnaDTO(dnaSimios);
-
-        when(dnaService.isSimian(dnaSimios)).thenReturn(false);
-
-        final ResponseEntity<String> response = testRestTemplate.postForEntity("/isSimian", dna,String.class);
-
-        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        Assertions.assertEquals(TypeDna.SIMIOS.name(), response.getBody());
-    }
-
     @Test
     public void shouldCheckIfReturnHttp200Ok() {
         String[] dnaSimios = new String[]{"CAGTAG", "TTTTAT", "GCAGGC", "ACTGAC", "TGAATC"};
@@ -56,7 +41,33 @@ public class DnaControllerTest {
         final ResponseEntity<String> response = testRestTemplate.postForEntity("/isSimian", dna, String.class);
 
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
 
+    @Test
+    public void shouldCheckIfIsSimian() {
+        String[] dnaSimios = new String[]{"CAGTAG", "TTTTAT", "GCAGGC", "ACTGAC", "TGAATC"};
 
+        DnaDTO dna = new DnaDTO(dnaSimios);
+
+        when(dnaService.saveDna(dnaSimios)).thenReturn(TypeDna.HUMANO);
+
+        final ResponseEntity<String> response = testRestTemplate.postForEntity("/isSimian", dna,String.class);
+
+        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        Assertions.assertEquals("\"HUMANO\"", response.getBody());
+    }
+
+    @Test
+    public void shouldCheckIfIsHuman() {
+        String[] dnaSimios = new String[]{"CAGTAG", "TTTTAT", "GCAGGC", "ACTGAC", "TGAATC"};
+
+        DnaDTO dna = new DnaDTO(dnaSimios);
+
+        when(dnaService.saveDna(dnaSimios)).thenReturn(TypeDna.SIMIOS);
+
+        final ResponseEntity<String> response = testRestTemplate.postForEntity("/isSimian", dna,String.class);
+
+        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        Assertions.assertEquals("\"SIMIOS\"", response.getBody());
     }
 }

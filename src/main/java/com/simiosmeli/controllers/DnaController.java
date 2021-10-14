@@ -18,7 +18,6 @@ public class DnaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TypeDna isSimian(@RequestBody DnaDTO dnaDto) {
-
         return dnaService.saveDna(dnaDto.getDna());
     }
 

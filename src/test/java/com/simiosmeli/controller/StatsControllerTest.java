@@ -5,6 +5,7 @@ import com.simiosmeli.controllers.dto.DnaDTO;
 import com.simiosmeli.controllers.dto.StatsDTO;
 import com.simiosmeli.model.enums.TypeDna;
 import com.simiosmeli.services.StatsService;
+import com.sun.xml.bind.v2.TODO;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -34,6 +35,18 @@ public class StatsControllerTest {
 
     private  StatsController statsController;
 
+    @Test
+    public void shouldCheckIfReturnHttp200Ok() {
+        StatsDTO statsDTO = new StatsDTO(10, 5,0.5);
+
+        StatsDTO stats = new StatsDTO(statsDTO);
+
+        when(statsService.getStats()).thenReturn(stats);
+
+        final ResponseEntity<StatsDTO> response = testRestTemplate.getForEntity("/stats",StatsDTO.class);
+
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
 
     @Test
     public void shouldReturnStatsDto() {
@@ -46,8 +59,9 @@ public class StatsControllerTest {
 
         final ResponseEntity<StatsDTO> response = testRestTemplate.getForEntity("/stats",StatsDTO.class);
 
-        Assertions.assertEquals(10,5,05);
+        Assertions.assertEquals(response.getBody(), response.getBody()); /// TODO: 13/10/21
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
 
     }
+
 }

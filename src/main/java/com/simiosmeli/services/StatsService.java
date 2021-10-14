@@ -3,9 +3,11 @@ package com.simiosmeli.services;
 import com.simiosmeli.controllers.dto.StatsDTO;
 import com.simiosmeli.model.enums.TypeDna;
 import com.simiosmeli.repositories.DnaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class StatsService {
 
